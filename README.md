@@ -1,4 +1,79 @@
 # 최재학 [202030432]
+## [04월06일]
+> 
+- for in 반복문
+- 인덱스를 가져와서 반복
+```jsx
+    for(let index in array) {
+    }
+```
+- for of 반복문
+- 요소를 가져와서 반복
+```jsx
+    for(let element of array) {
+    }
+```
+- 배열을 선언할 때는 배열의 이름을 잘 명시해야함
+- 중첩 반복문
+- 예)
+```jsx
+    let output = "";
+    for(let i = 0; i < 10; i++) {
+        for(let j = 0; j < i + 1; j++) {
+            output += '*';
+        }
+        output += '\n'
+    }
+    console.log(output);
+```
+- break 키워드
+- switch 조건문 이나 반복문을 벗어날 때 사용
+- push는 배열의 끝에 원하는 값을 추가해주는 함수
+```jsx
+    bar = [0];
+    bar.push(1, 2, 3);
+    console.log(bar)
+    //실행 결과
+    //[0, 1, 2, 3]
+```
+- pop은 배열의 마지막 주소에 있는 값을 제거해주는 함수
+```jsx
+    bar = [0, 1, 2, 3];
+    bar.pop();
+    console.log(bar)
+    //실행 결과
+    //[0, 1, 2]
+```
+- shift는 배열의 첫번째 주소에 있는 값을 제거한 후에 반환해주는 함수
+```jsx
+    bar = [0, 1, 2];
+    bar.shift();
+    console.log(bar)
+    //실행 결과
+    //[1, 2]
+```
+- push와 pop를 이용하면 stack, push와 shift를 이용하면 queue
+- reverse는 배열의 요소들을 역순으로 만들어주는 함수
+- sort는 배열을 정렬
+- slice는 배열의 일부를 복사하는 함수
+- splice는 배열의 일부를 제거하며 복사하는 함수, 매개변수를 통해 잘라진 곳에 요소를 집어넣을 수 있음
+- continue 키워드
+- 반복문 내부에서 현재 반복을 멈추고 다음 반복을 진행할 때 사용
+- 예)
+```jsx
+    for(let i = 1; i < 10;. i++) {
+        if (i % 2 == 0) {
+            continue;
+        }
+        conesole.log(i);
+    }
+```
+- 스코프(Scope)
+- 변수를 사용할 수 있는 범위
+- 스코프 == 블록
+- 스코프 내부에서 이름이 중복되도 독립적으로 사용됨
+- var 키워드: 변수 선언시 사용 현재는 잘 사용하지 않는다.
+# 최재학 [202030432]
 ## [03월30일]
 > 조건문 if/switch, 삼항 연산자
 - 중첩 조건문: 조건문(if) 안에 조건문(if)을 중첩해 사용하는 것
@@ -10,7 +85,7 @@
     if(hour < 11) {
         if(hours < 11) {
             console.log("아침 먹을 시간입니다.");
-        } else {
+        } else {`
             if(hours < 15){
                 console.log("점심 먹을 시간입니다.");
             } else {
