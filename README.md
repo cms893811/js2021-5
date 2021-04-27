@@ -39,14 +39,14 @@ let object = {
 };
 ```
 - 생성자 함수: 객체를 만드는 함수
-- 예)
 ```
 fuction Product(name, price) {
     this.name = name;
     this.price = price;
 }
-let product = new Product("바나나", 1200);
+let product = new Product("바나나",);
 ```
+
 ## [04월13일]
 > 익명 함수
 - 익명 함수
