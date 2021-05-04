@@ -1,4 +1,58 @@
 # 최재학 [202030432]
+## [05월04일]
+>
+- 프로토타입
+생성자 함수로 만든 객체는 프로토타입이라는 공간에 메소드를 지정해서 모든 객체가 공유 하도록 함, 해당 함수를 생성자 함수로 사용했을 때만 의미가 있음
+```
+//생성자 함수
+function Product(namem price) {
+    this.name = name;
+    this.price = price;
+}
+Product.prototype.print = function() {
+    console.log(`${product.name}의 가격은 ${product.price}원입니다.`);
+};
+let product = new Product("바나나", 1200);
+product.print();
+```
+- null의 값과 자료형
+0, NaN, ""은 false로 변형될 뿐이지 실제로는 값이 들어있는 것
+null은 아예 값이 없는 상태 undefined를 인위적으로 만들 때 사용
+### 표준 내장 객체
+- 기본 자료형
+자바스크립트에서 제공하는 숫자(number), 문자열(string), 불(boolean)을 기본 자료형이라고 한다.
+차이점: 기본 자료형은 객체가 아니므로 속성과
+메소드를 추가할 수 없음
+다만 프로토타입으로 속성 또는 메소드를 추가할 수는
+있음
+```
+let primitiveNumber = 273;
+Number.prototype.method = function() {
+    return 'Primitive Method'
+}
+console.log(primitiveNumber.method());
+```
+- Number 객체
+```
+let numberFromConstructor = new Number(273);
+```
+- Number 객체가 가진 메소드
+toExponential() : 숫자를 지수 표시로 나타낸 문자열을 리턴
+toFixed() : 숫자를 고정소수점 표시로 나타낸 문자열을 리턴
+toPrecision() : 숫자를 길이에 따라 지수 표시 또는 고정소수점 표시로 나타낸 문자열을 리턴
+- 생성자 함수에 속성과 메소드 추가
+```
+function Constructor() {}
+Constructor.property = 273;
+Constructor.method = function() {};
+```
+- Number 생성자 함수의 속성
+MAX_VALUE : 자바스크립트의 숫자가 나타낼 수 있는 최대 숫자
+MIN_VALUE : 자바스크립트의 숫자가 나타낼 수 있는 최소 숫자
+NaN : 자바스크립트의 숫자로 나타낼 수 없는 숫자
+POSITIVE_INFINITY : 양의 무한대 숫자
+NEGATIVE_INFINITY: 음의 무한대 숫자
+- 자바스크립트가 너무 큰 수를 다룰 때는 부동소수점 형식으로 숫자를 다루기 때문에 작은 수는 무시한다.
 ## [04월27일]
 >객체, 속성, 메소드
 동일한 변수에 값을 할당하면, 마지막에 할당한 값으로 덮여씌워 진다. 
