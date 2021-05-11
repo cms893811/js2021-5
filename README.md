@@ -1,6 +1,6 @@
 # 최재학 [202030432]
 ## [05월11일]
-> Date 객체
+> Date 객체, Array 객체, underscore.js 라이브러리, JSON 객체, 
 - new Date()<br>
 현재 시간으로 Date 객체 생성
 - new Date(유닉스 타임)<br>
@@ -16,6 +16,12 @@
 - set[]()
 - []에는 FullYear, Month, Day, Hours, Minutes, Seconds 등이 들어간다.
 ```
+// 예제 7-7 시간 간격 구하기
+let now = new Date();
+let before = new Date("Sep 29, 1997");
+let interval = now.getTime() - before.getTime();
+interval = Math.floor(interval / (1000 * 60 * 60 * 24));
+console.log(`태어난지 ${interval}일 지났습니다.`);
 ```
 ## Array 객체
 대부분 파괴적 메소드로 자기 자신을 변경
@@ -27,6 +33,96 @@
 - slice() : 배열 요소의 지정한 부분을 리턴
 - sort() : 배열의 요소를 정렬
 - splice() : 배열 요소의 지정한 부분을 삭제하고 삭제한 요소를 리턴
+```
+//예제 7-8 배열 가공
+let foo = [
+    {
+        name: '고구마',
+        price: 1000
+    },
+    {
+        name: '감자',
+        price: 500
+    },
+    {
+        name: '바나나',
+        price: 1500
+    },
+];
+let popped = foo.pop();
+console.log('- 배열에서 꺼낸 요소');
+console.log(popped);
+console.log('- pop() 메소드를 호출한 이후의 배열');
+console.log(foo);
+
+foo.push(popped);
+foo.push({
+    name: '사과',
+    price: 2000
+},
+{
+    name: '수박',
+    price: 3000
+});
+console.log('- push() 메소드를 호출한 이후의 배열');
+console.log(foo);
+```
+- forEach() : 배열의 요소를 하나씩 뽑아 반복
+- map() : 콜백 함수에서 리턴하는 것을 기반으로 새로운 배열을 만듬
+- filter() : 콜백 함수에서 ture를 리턴하는 것으로만 새로운 배열을 만들어 리턴
+```
+// 예제 7-10
+let foo = [10, 20, 304, 41, 44];
+// forEach() 메소드
+foo.forEach((item, index) => {
+    console.log(`${index} - ${item}`);
+});
+console.log('===================');
+// map() 메소드
+let bar = foo.map((item, index) => {
+    return item * 2;
+});
+console.log(bar);
+console.log('===================');
+// filter() 메소드
+let foobar = foo.filter((item, index) => {
+    return item % 2 == 0;
+});
+console.log(foobar);
+```
+## underscore.js 라이브러리
+```
+    //1번 형태
+    const bar =_.sortBy(foo, (item) => item.price);
+    console.log(bar);
+    //2번 형태
+    const foobar = _(foo).sortBy((item) => item.name);
+    console.log(foobar);
+```
+## JOSN 객체
+```
+// 기본 형태
+let foo = [
+    {
+        name: '고구마',
+        price: 1000
+    },
+    {
+        name: '감자',
+        price: 500
+    },
+    {
+        name: '바나나',
+        price: 1500
+    }
+];
+```
+- 문자열을 큰따옴표로 만들어야 한다.
+- 모든 키는 큰따옴표로 감싸야 한다
+- 숫자, 문자열, 불 자료형만 사용할 수 있다.
+## JSON 객체의 메소드
+- JSON.stringify(객체, 변환 함수, 공백 개수) : 자바스크립트 객체를 문자로 만든다
+- JSON.parse(문자열) : 문자열을 자바스크립트 객체로 파싱한다
 ## [05월04일]
 >
 - 프로토타입<br>
