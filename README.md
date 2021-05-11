@@ -1,6 +1,6 @@
 # 최재학 [202030432]
 ## [05월11일]
-> Date 객체, Array 객체, underscore.js 라이브러리, JSON 객체, 
+> Date 객체, Array 객체, underscore.js 라이브러리, JSON 객체, 예외 처리
 - new Date()<br>
 현재 시간으로 Date 객체 생성
 - new Date(유닉스 타임)<br>
@@ -123,6 +123,58 @@ let foo = [
 ## JSON 객체의 메소드
 - JSON.stringify(객체, 변환 함수, 공백 개수) : 자바스크립트 객체를 문자로 만든다
 - JSON.parse(문자열) : 문자열을 자바스크립트 객체로 파싱한다
+## 예외처리
+- TypeError 발생
+undefined 자료형을 일반적은 객체 또는 함수처럼
+다루면 발생하는 예외
+```
+fuction callThreeTimes(callback) {
+    for(let i = 0; i < 3; i++) {
+        callback();
+    }
+    // 정상 실행
+    callThreeTimes(function() {console.log('안녕하세요');});
+
+    // 예외 발생
+    callTenTimes();
+}
+```
+TypeError를 기본 예외 처리로 처리
+```
+fuction callThreeTimes(callback) {
+    if (callback) {
+        for(let i = 0; i < 3; i++) {
+            callback();
+        }
+    } else {
+        console.log('매개 변수 callback이 지정되지 않았습니다.');
+    }
+
+    // 정상 실행
+    callThreeTimes(function() {console.log('안녕하세요');});
+
+    // 예외 발생
+    callTenTimes();
+}
+```
+- 고급 예외 처리, try catch finally 구문을 사용
+```
+try {
+    const array = new Array(-2000);
+} catch (exception) {
+    console.log(`${exception.name} 예외가 발생했습니다.`)
+} finally {
+    console.log('finally 구문이 실행되었습니다.')
+}
+```
+## 예외 강제 발생
+```
+const error = new Error('메시지');
+error.name = '내 마음대로 오류';
+error.message = '오류의 메시지';
+// 예외 발생
+throw error;
+```
 ## [05월04일]
 >
 - 프로토타입<br>
