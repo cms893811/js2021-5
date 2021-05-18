@@ -1,4 +1,391 @@
 # 최재학 [202030432]
+## [05월17일]
+> 전역 변수
+- 전역 변수: 모든 곳에서 제약없이 사용할 수 있는 변수
+# process 객체의 속성과 이벤트
+- process 객체: 프로세스 정보를 제공하며, 제어할 수 있게 하는 객체<br>
+## node.js의 이벤트 연결 메소드
+- on(<이벤트 이름>, 이벤트 핸들러) : 이벤트를 연결
+## process 객체의 이벤트
+- exit : 프로세스가 종료될 때 발생
+- uncaughtException 예외가 일어날 때 발생
+```
+process.on('exit', () => {
+    console.log('프로세스가 종료되었습니다.');
+});
+process.on('uncaughtException', () => {
+    console.log('예외가 발생했습니다.');
+});
+// 예외 강제 발생
+error.error.error();
+```
+## OS 모듈
+os 모듈 추출
+```
+const os = require('os');
+```
+- 다른 이름을 사용해도 되지만 같은 이름을 사용하는 것이 알기 쉬움
+## os 모듈 메소드
+- hostname(); : 운영체제의 호스트 이름을 리턴
+- type(); : 운영체제의 이름을 리턴
+- platform(); : 운영체제의 플랫폼을 리턴
+- arch(); : 운영체제의 아키텍처을 리턴
+- release(); : 운영체제의 버전을 리턴
+- uptime(); : 운영체제의 실행된 시간을 리턴
+- loadavg(); : 에버리지 정보를 담은 배열을 리턴
+- totalmem(); : 시스템의 총 메모리를 리턴
+- freemem(); : 시스템의 사용 가능한 메모리를 리턴
+- cpus(); : CPU의 정보를 담은 객체를 리턴
+- networkInterfaces(); : 네트워크 인터페이스의 정보를 담은 배열을 리턴
+<br>
+
+- os모듈 추출, 메소드 호출 예시
+```
+const os = require('os');
+console.log(os.hostname());
+console.log(os.type());
+console.log(os.platform());
+console.log(os.arch());
+console.log(os.release());
+console.log(os.uptime());
+console.log(os.loadavg());
+console.log(os.totalmem());
+console.log(os.freemem());
+console.log(os.cpus());
+console.log(os.networkInterfaces());
+```
+
+## url 모듈
+```
+const url = require('url');
+```
+- parse(urlStr[, parseQueryString=false, slashesDenoteHost=flase]) : URL 문자열을 URL 객체로 변환해 리턴
+- format(urlObj) :URL 객체를 URL 문자열로 변환해 리턴
+- resolve(form, to) : 매개 변수를 조합해 URL 문자열을 생성해 리턴
+<br>
+
+## File System 모듈
+```
+const fs = require('fs');
+```
+## 파일 읽기 메소드
+- fs.readFileSync(<파일 이름>) : 동기적으로 파일을 읽어 들임
+- fs.readFile(<파일 이름>, <콜백 함수>) : 비동기적으로 파일을 읽어 들임
+<br>
+
+- 동기와 비동기의 내부 실행 구조는 다름
+## 비동기 처리의 장점
+- 자바스크립트 프로그래밍 언어는 C++, 자바보다 느리지만 Node.js를 사용하면 손쉽게 비동기 처리를 구현하여 빠른 처리가 가능
+
+## 파일 쓰기
+- fs.writeFileSync(<파일 이름>, <문자열>) : 동기적으로 파일을 씀
+- fs.writeFile(<파일 이름>, <문자열>, <콜백 함수>) : 비동기적으로 파일을 씀
+
+## 파일 처리와 예외 처리
+- 동기 코드를 예외 처리할 때는 try catch
+- 비동기 코드를 예외 처리할 때는 콜백 함수로 전달된 첫 번째 매개변수 error를 활용
+<br>
+
+조기리턴: 함수 중간 부분에 리턴을 넣으면 함수가 해당 부분에서 종료되는 것
+
+## 노드 패키지 매니저
+- npm을 이용한 외부 모듈 설치
+```
+npm install <모듈 이름>@<버전>
+```
+
+## request 모듈
+- 외부 모듈이므로 npm으로 설치해야 사용할 수 있음
+```
+npm install request
+```
+설치한 외부 모듈은 내부 모듈처럼 require() 함수로 사용
+
+## [05월11일]
+> Date 객체, Array 객체, underscore.js 라이브러리, JSON 객체, 예외 처리
+- new Date()<br>
+현재 시간으로 Date 객체 생성
+- new Date(유닉스 타임)<br>
+1970년 1월 1일 00시 00분 00초부터 경과한 밀리초로 Date 객체를
+생성
+- new Date(시간문자열)<br>
+문자열로 Date 객체 생성
+- new Date(년, 월-1, 일, 시간, 분, 초, 밀리초)<br>
+시간 요소를 기반으로 Date 객체 생성
+## Date 객체
+메소드 활용
+- get[]()
+- set[]()
+- []에는 FullYear, Month, Day, Hours, Minutes, Seconds 등이 들어간다.
+```
+// 예제 7-7 시간 간격 구하기
+let now = new Date();
+let before = new Date("Sep 29, 1997");
+let interval = now.getTime() - before.getTime();
+interval = Math.floor(interval / (1000 * 60 * 60 * 24));
+console.log(`태어난지 ${interval}일 지났습니다.`);
+```
+## Array 객체
+대부분 파괴적 메소드로 자기 자신을 변경
+- concat() :  매개 변수로 입력한 배열의 요소를 모두 합쳐 배열을 만들어 리턴
+- join() : 배열 안의 모든 요소를 문자열로 만들어 리턴
+- pop() : 배열의 마지막 요소를 제거하고 리턴
+- push() : 배열의 마지막 부분에 새로운 요소 추가
+- reverse() : 배열의 요소 순서를 뒤집음
+- slice() : 배열 요소의 지정한 부분을 리턴
+- sort() : 배열의 요소를 정렬
+- splice() : 배열 요소의 지정한 부분을 삭제하고 삭제한 요소를 리턴
+```
+//예제 7-8 배열 가공
+let foo = [
+    {
+        name: '고구마',
+        price: 1000
+    },
+    {
+        name: '감자',
+        price: 500
+    },
+    {
+        name: '바나나',
+        price: 1500
+    },
+];
+let popped = foo.pop();
+console.log('- 배열에서 꺼낸 요소');
+console.log(popped);
+console.log('- pop() 메소드를 호출한 이후의 배열');
+console.log(foo);
+
+foo.push(popped);
+foo.push({
+    name: '사과',
+    price: 2000
+},
+{
+    name: '수박',
+    price: 3000
+});
+console.log('- push() 메소드를 호출한 이후의 배열');
+console.log(foo);
+```
+- forEach() : 배열의 요소를 하나씩 뽑아 반복
+- map() : 콜백 함수에서 리턴하는 것을 기반으로 새로운 배열을 만듬
+- filter() : 콜백 함수에서 ture를 리턴하는 것으로만 새로운 배열을 만들어 리턴
+```
+// 예제 7-10
+let foo = [10, 20, 304, 41, 44];
+// forEach() 메소드
+foo.forEach((item, index) => {
+    console.log(`${index} - ${item}`);
+});
+console.log('===================');
+// map() 메소드
+let bar = foo.map((item, index) => {
+    return item * 2;
+});
+console.log(bar);
+console.log('===================');
+// filter() 메소드
+let foobar = foo.filter((item, index) => {
+    return item % 2 == 0;
+});
+console.log(foobar);
+```
+## underscore.js 라이브러리
+```
+    //1번 형태
+    const bar =_.sortBy(foo, (item) => item.price);
+    console.log(bar);
+    //2번 형태
+    const foobar = _(foo).sortBy((item) => item.name);
+    console.log(foobar);
+```
+## JOSN 객체
+```
+// 기본 형태
+let foo = [
+    {
+        name: '고구마',
+        price: 1000
+    },
+    {
+        name: '감자',
+        price: 500
+    },
+    {
+        name: '바나나',
+        price: 1500
+    }
+];
+```
+- 문자열을 큰따옴표로 만들어야 한다.
+- 모든 키는 큰따옴표로 감싸야 한다
+- 숫자, 문자열, 불 자료형만 사용할 수 있다.
+## JSON 객체의 메소드
+- JSON.stringify(객체, 변환 함수, 공백 개수) : 자바스크립트 객체를 문자로 만든다
+- JSON.parse(문자열) : 문자열을 자바스크립트 객체로 파싱한다
+## 예외처리
+- TypeError 발생
+undefined 자료형을 일반적은 객체 또는 함수처럼
+다루면 발생하는 예외
+```
+fuction callThreeTimes(callback) {
+    for(let i = 0; i < 3; i++) {
+        callback();
+    }
+    // 정상 실행
+    callThreeTimes(function() {console.log('안녕하세요');});
+
+    // 예외 발생
+    callTenTimes();
+}
+```
+TypeError를 기본 예외 처리로 처리
+```
+fuction callThreeTimes(callback) {
+    if (callback) {
+        for(let i = 0; i < 3; i++) {
+            callback();
+        }
+    } else {
+        console.log('매개 변수 callback이 지정되지 않았습니다.');
+    }
+
+    // 정상 실행
+    callThreeTimes(function() {console.log('안녕하세요');});
+
+    // 예외 발생
+    callTenTimes();
+}
+```
+- 고급 예외 처리, try catch finally 구문을 사용
+```
+try {
+    const array = new Array(-2000);
+} catch (exception) {
+    console.log(`${exception.name} 예외가 발생했습니다.`)
+} finally {
+    console.log('finally 구문이 실행되었습니다.')
+}
+```
+## 예외 강제 발생
+```
+const error = new Error('메시지');
+error.name = '내 마음대로 오류';
+error.message = '오류의 메시지';
+// 예외 발생
+throw error;
+```
+## [05월04일]
+>
+- 프로토타입<br>
+생성자 함수로 만든 객체는 프로토타입이라는 공간에 메소드를 지정해서 모든 객체가 공유 하도록 함, 해당 함수를 생성자 함수로 사용했을 때만 의미가 있음
+```
+//생성자 함수
+function Product(namem price) {
+    this.name = name;
+    this.price = price;
+}
+Product.prototype.print = function() {
+    console.log(`${product.name}의 가격은 ${product.price}원입니다.`);
+};
+let product = new Product("바나나", 1200);
+product.print();
+```
+- null의 값과 자료형
+0, NaN, ""은 false로 변형될 뿐이지 실제로는 값이 들어있는 것
+null은 아예 값이 없는 상태 undefined를 인위적으로 만들 때 사용
+### 표준 내장 객체
+- 기본 자료형<br>
+자바스크립트에서 제공하는 숫자(number), 문자열(string), 불(boolean)을 기본 자료형이라고 한다.
+차이점: 기본 자료형은 객체가 아니므로 속성과
+메소드를 추가할 수 없음
+다만 프로토타입으로 속성 또는 메소드를 추가할 수는
+있음
+```
+let primitiveNumber = 273;
+Number.prototype.method = function() {
+    return 'Primitive Method'
+}
+console.log(primitiveNumber.method());
+```
+- Number 객체
+```
+let numberFromConstructor = new Number(273);
+```
+### Number 객체가 가진 메소드
+- toExponential() : 숫자를 지수 표시로 나타낸 문자열을 리턴
+- toFixed() : 숫자를 고정소수점 표시로 나타낸 문자열을 리턴
+- toPrecision() : 숫자를 길이에 따라 지수 표시 또는 고정소수점 표시로 나타낸 문자열을 리턴
+생성자 함수에 속성과 메소드 추가
+```
+function Constructor() {}
+Constructor.property = 273;
+Constructor.method = function() {};
+```
+### Number 생성자 함수의 속성
+- MAX_VALUE : 자바스크립트의 숫자가 나타낼 수 있는 최대 숫자
+- MIN_VALUE : 자바스크립트의 숫자가 나타낼 수 있는 최소 숫자
+- NaN : 자바스크립트의 숫자로 나타낼 수 없는 숫자
+- POSITIVE_INFINITY : 양의 무한대 숫자
+- NEGATIVE_INFINITY: 음의 무한대 숫자
+자바스크립트가 너무 큰 수를 다룰 때는 부동소수점 형식으로 숫자를 다루기 때문에 작은 수는 무시한다.
+### String 객체
+- Number 객체
+```
+let stringFromConstructor = new String('안녕하세요');
+```
+### 메소드 활용
+- indexOf() : 문자열 내부에 특정 문자열이 있는지 확인할 때 사용, 매개 변수로 받은 문자열이 포함된 부분의 위치를 리턴함, 매개 변수로 받은 문자열이 포함되어 있지 않으면 -1을 리턴
+## [04월27일]
+>객체, 속성, 메소드
+동일한 변수에 값을 할당하면, 마지막에 할당한 값으로 덮여씌워 진다. 
+이는 함수도 같다.
+선언적 함수는 코드를 실행하기 전에 생성됨
+- 익명 함수와 화살표 함수의 차이
+거의 비슷한 기능을 수행하지만 this 키워드가 가지는 의미가
+다르다. function () {} 식으로 선언 하는 익명함수 내부에서
+this가 가지는 의미는 자바스크립트 최상위 객체 또는
+외부에서 강제로 연결한 객체를 나타내고
+화살표 함수 내부에서는 this는 자기 자신과 관련된 것만을
+나타낸다.
+- 객체 선언
+```
+let 객체 이름 = {
+    키1: '값',
+    키2: 값
+}
+```
+- 객체의 속성에 접근
+```
+객체 이름[키1]
+객체 이름.키2
+```
+식별자 생성 규칙에 어긋나는 문자를 키로 사용할 때는
+반드시 대괄호를 사용해야 객체의 요소에 접근할 수 있다.
+- 속성: 객체 내부에 있는 각각의 값
+- 메소드: 객체의 속성 중 자료형이 함수인 속성
+객체에 있는 속성을 메소드에서 사용할 때는 자신이 가지고 있는 속성임을 분명하게 표시하기 위해 this를 사용
+- 예)
+```
+let object = {
+    name: '바나나',
+    price: 1200,
+    print: fuction () {
+        console.log(`${this.name}의 가격은 ${this.price}원 입니다.`)
+    }
+};
+```
+- 생성자 함수: 객체를 만드는 함수
+```
+fuction Product(name, price) {
+    this.name = name;
+    this.price = price;
+}
+let product = new Product("바나나",);
+```
+
 ## [04월13일]
 > 익명 함수
 - 익명 함수
@@ -47,25 +434,24 @@ print("사과"); // <- count 미 호출
 시간은 밀리초
 - setTimeout(함수, 시간)
 - setInterval(함수, 시간)
-# 최재학 [202030432]
 ## [04월06일]
 > 
 # for in 반복문
 - 인덱스를 가져와서 반복
-```
+```jsx
     for(let index in array) {
     }
 ```
 # for of 반복문
 - 요소를 가져와서 반복
-```
+```jsx
     for(let element of array) {
     }
 ```
 - 배열을 선언할 때는 배열의 이름을 잘 명시해야함
 # 중첩 반복문
 - 예)
-```
+```jsx
     let output = "";
     for(let i = 0; i < 10; i++) {
         for(let j = 0; j < i + 1; j++) {
@@ -78,7 +464,7 @@ print("사과"); // <- count 미 호출
 # break 키워드
 - switch 조건문 이나 반복문을 벗어날 때 사용
 - push는 배열의 끝에 원하는 값을 추가해주는 함수
-```
+```jsx
     bar = [0];
     bar.push(1, 2, 3);
     console.log(bar)
@@ -86,7 +472,7 @@ print("사과"); // <- count 미 호출
     //[0, 1, 2, 3]
 ```
 - pop은 배열의 마지막 주소에 있는 값을 제거해주는 함수
-```
+```jsx
     bar = [0, 1, 2, 3];
     bar.pop();
     console.log(bar)
