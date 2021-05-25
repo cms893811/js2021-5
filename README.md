@@ -1,4 +1,255 @@
 # 최재학 [202030432]
+## [05월25일]
+> 요청과 응답, express 모듈, 서버 생성/실행, 페이지 라우팅, response 객체, request 객체, 미들웨어
+- 요청 메시지: 클라이언트가 서버로 보내는 편지
+- 응답 메시지: 서버가 클라이언트로 보내는 편지<br>
+express 모듈을 사용한 서버 생성과 실행
+```
+// 모듈 추출
+const express = require('express');
+
+//서버 생성
+const app = express();
+
+//request 이벤트 리스너 설정
+app.use((request, response) => {
+    response.send('<h1>Hello express</h1>');
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console.log('Server running at http://127.0.0.1:52273');
+});
+```
+컴퓨터에는 0~65535번까지 포트가 있다.
+
+- 페이지 라우팅 : 클라이언트 요청에 적절한 페이지를 제공하는 기술
+express 모듈은 app 객체의 다음 메소드를 활용해 페이지 라우팅을 함
+- get(path, callback) : GET 요청이 발생했을 때 이벤트 리스너 지정
+- post(path, callback) : POST 요청이 발생했을 때 이벤트 리스너 지정
+- put(path, callback) : PUT 요청이 발생했을 때 이벤트 리스너 지정
+- delete(path, callback) : DELETE 요청이 발생했을 때 이벤트 리스너 지정
+- all(path, callback) : 모든 요청이 발생했을 때 이벤트 리스너 지정
+<br>
+
+- 페이지 라우팅을 할 때 토큰을 활용함
+- ':<토큰 이름>' 형태로 설정
+- 토큰은 다른 문자열로 변환 입력가능, request 객체의 params 속성으로 전달됨
+<br>
+
+페이지 라우팅
+```
+//모듈 추출
+const express = require('express');
+
+// 서버 생성
+const app = express();
+
+// request 이벤트 리스너 설정
+app.get('/page/:id', (request, response) => {
+    // 토큰 꺼내기
+    const id = request.params.id;
+    // 응답
+    response.send(`<h1>${id} Page</h1>`);
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console.log('Server running at http://127.0.0.1:52273');
+});
+```
+## response 객체
+- send() : 데이터 본문을 제공
+- status() : 상태 코드를 제공
+- set() : 헤더를 설정
+<br>
+
+response 객체의 기본 메소드
+```
+//모듈 추출
+const express = require('express');
+
+// 서버 생성
+const app = express();
+
+// request 이벤트 리스너 설정
+app.get('*', (request, response) => {
+    response.status(404);
+    response.set('methodA', 'ABCDE');
+    response.set({
+        'methodB1': 'FGHIJ',
+        'methodB2': 'KLMNO'
+    });
+    response.send('404 ERORR');
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console.log('Server running at http://127.0.0.1:52273');
+});
+```
+Content-Type
+서버가 데이터를 제공할 떼 Content-Type 속성을 헤더에 제공하여 웹 브라우저가 제공된 <br>
+데이터의 형태를 해석할 수 있게 해야함<br>
+예) 그림파일 제공
+```
+//모듈 추출
+const express = require('express');
+const fs = require('fs');
+
+// 서버 생성
+const app = express();
+
+// request 이벤트 리스너 설정
+app.get('/image', (request, response) => {
+    fs.readFile('./image.png', (error, data) => {
+        response.type('image/png');
+        response.send(data);
+    }); 
+});
+
+app.get('/audio', (request, response) => {
+    fs.readFile('./audio.mp3', (error, data) => {
+        response.type('audio/mpeg');
+        response.send(data);
+    }); 
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console.log('Server running at http://127.0.0.1:52273');
+});
+```
+리다이렉트 : 3xx, 특수한 상태 코드
+웹 브라우저가 리다이렉트를 확인하면 화면을 출력하지 않고, 응답 헤더에 있는 Location 속성을 확인해서 해당 위치로 이동
+
+```
+// 모듈 추출
+const { response } = require('express');
+const express = require('express');
+
+//서버 생성
+const app = express();
+
+// request 이벤트 리스너 설정
+app.get('*', (require, response) => {
+    response.redirect('https://www.naver.com/');
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console.log('Server running at http://127.0.0.1:52273');
+});
+```
+## request 객체
+요청 매개 변수 추출
+```
+// 모듈 추출
+const express = require('express');
+
+//서버 생성
+const app = express();
+
+// request 이벤트 리스너 설정
+app.get('*', (require, response) => {
+    console.log(request.query);
+    response.send(request.query);
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console.log('Server running at http://127.0.0.1:52273');
+});
+```
+## 미들웨어
+- 정적 파일 제공 : 웹 페이지에서 변경되지 않는 요소를 쉽게 제공해주는 기능
+```
+// 모듈 추출
+const express = require('express');
+
+//서버 생성
+const app = express();
+app.use(express.static('public'));
+
+// request 이벤트 리스너 설정
+app.get('*', (require, response) => {
+    response.send(404);
+    response.send('해당 경로에는 아무것도 없습니다.');
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console/i.log('Server running at http://127.0.0.1:52273');
+});
+```
+- morgan 미들웨어
+다른 사람이 만든 미들웨어도 가져와서 사용할 수 있다.
+```
+// 모듈 추출
+const express = require('express');
+const morgan = require('morgan');
+
+//서버 생성
+const app = express();
+app.use(express.static('public'));
+app.use(morgan('combined'));
+
+// request 이벤트 리스너 설정
+app.get('*', (require, response) => {
+    response.send('명령 프롬프트를 확인해주세요.');
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console/i.log('Server running at http://127.0.0.1:52273');
+});
+```
+## body-parser 미들웨어
+- 클라이언트에서 서버로 데이터 전송
+- 요청 본문
+
+```
+// 모듈 추출
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const { request } = require('node:http');
+const { response } = require('express');
+// 서버 생성
+const app = express();
+app.use(express.static('public'));
+app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({extended: false}));
+
+// request 이벤트 리스너 설정
+app.get('*', (require, response) => {
+    // HTML 형식의 문자열 생성
+    let output = '';
+    output += '<form method="post">';
+    output += '<input type="text" name="a" />';
+    output += '<input type="text" name="b" />';
+    output += '<input type="submit" />';
+    output += '</form>';
+
+    response.send(output);
+});
+
+app.post('/', (request, response) => {
+    //응답
+    response.send(request.body);
+});
+
+// 서버 실행
+app.listen(52273, () => {
+    console/i.log('Server running at http://127.0.0.1:52273');
+});
+```
+## RESTful
+REST 규정에 맞게 만든 ROA를 따르는 웹 서비스 디자인 표준
+
+
+
+
 
 ## [05월17일]
 > process 객체, 이벤트 연결, OS 모듈, url 모듈, File System 모듈 파일 읽기/쓰기, 동기/비동기 처리, request 모듈, cheerio 모듈, async 모듈, 
