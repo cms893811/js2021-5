@@ -74,6 +74,8 @@ $(document).ready(function () {
 <h1 data-test='test' style= backgroundColor: 'red', color: white>안녕하세요</h1>
 ```
 - 이벤트
+![image](https://user-images.githubusercontent.com/70502295/120285038-d5866f00-c2f7-11eb-905e-ef7fcfa45cf5.png)
+![image](https://user-images.githubusercontent.com/70502295/120285076-de774080-c2f7-11eb-908f-b70a456fea49.png)
 
 ## 애니메이션
 animate()
