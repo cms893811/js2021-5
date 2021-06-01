@@ -1,4 +1,92 @@
 # 최재학 [202030432]
+## [06월01일]
+> 
+- 인터넷 익스플로러에서는 let, const, 템플릿 문자열, 화살표 함수, for of 사용 불가
+- 템플릿 문자열: `${}`
+- 화살표 함수: const 이름 = () => {}
+- for of: for(let item of array) { }
+## screen 객체
+- width : 화면의 너비
+- height : 화면의 높이
+- availWidth : 실제 화면에서 사용 가능한 너비
+- availHeight : 실제 화면에서 사용 가능한 높이
+- colorDepth : 사용 가능한 색상 수
+- pixelDepth : 한 픽셀당 비트 수
+
+## location 객체 메소드
+- assign(링크) : 매개 변수로 전달한 위치로 이동
+- reloat() : 새로고침
+- replace() 매개 변수로 전달한 위치로 이동
+
+## history 객체 메소드
+- forward() : 앞으로 이동
+- back() :  뒤로 이동
+
+## navigator 객체
+- appCodeName 웹 브라우저의 코드 이름
+- appName 웹 브라우저의 이름
+- appVersion 웹 브라우저의 버전
+- paltform 사용 중인 운영체제의 시스템 환경
+- uesrAgent 웹 브라우저의 전체적인 정보
+
+## 객체 탐색 메소드
+parent() : 부모 태그 선택
+find() : 후손 태그 찾기
+
+## 문서 객체 조작
+each() : 선택된 문서 객체에 반복을 적용
+
+## 문자 조작
+text() : 태그 내부의 문자 조작
+html() : 태그 내부의 문자를 조작(HTML 태그 인식)
+- 선택자로 여러 개의 문서 객체를 선택할 때
+- - text ( ) 메소드는 모든 문서 객체 내부의 문자를 출력
+- - html( ) 메소드는 첫 번째 문서 객체 내부의 문자를 출력
+
+## 스타일 조작
+css() 스타일을 조작
+
+## 속성 조작
+attr() 속성을 조작
+
+## 문서 객체 추가 메소드
+$(A).prepentTo(B) : A를 B 안쪽 앞에 추가
+$(A).appentTo(B) : A를 B 안쪽 뒤에 추가
+$(A).insertBefore(B) : A를 B 앞에 추가
+$(A).insertAfter(B) : A를 B 뒤에 추가
+
+```
+$(document).ready(function () {
+            $('<h1></h1>')
+                .text('안녕하세요')
+                .attr('data-test', 'test')
+                .css({
+                    baclgroundColor: 'red',
+                    color: 'white'
+                })
+                .appendTo('body');
+        });
+```
+
+```
+<h1 data-test='test' style= backgroundColor: 'red', color: white>안녕하세요</h1>
+```
+
+
+
+
+
+문서 객체 모델
+- 넓은 의미 : 웹 브라우저가 HTML 페이지를 인식하는 방법
+- 좁은 의미 : document 객체와 관련된 객체의 집합을 나타냄
+
+문서 객체 선택
+document.getElementById(아이디) : 아이디를 사용해 문서 객체를 선택
+document.querySelector(선택자) : 선택자를 사용해 문서 객체를 선택
+
+
+
+
 ## [05월25일]
 > 요청과 응답, express 모듈, 서버 생성/실행, 페이지 라우팅, response 객체, request 객체, 미들웨어
 - 요청 메시지: 클라이언트가 서버로 보내는 편지
