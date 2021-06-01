@@ -56,6 +56,7 @@ $(A).insertBefore(B) : A를 B 앞에 추가
 $(A).insertAfter(B) : A를 B 뒤에 추가
 
 ```
+<script>
 $(document).ready(function () {
             $('<h1></h1>')
                 .text('안녕하세요')
@@ -66,26 +67,19 @@ $(document).ready(function () {
                 })
                 .appendTo('body');
         });
+</script>
 ```
 
 ```
 <h1 data-test='test' style= backgroundColor: 'red', color: white>안녕하세요</h1>
 ```
+- 이벤트
 
-
-
-
-
-문서 객체 모델
-- 넓은 의미 : 웹 브라우저가 HTML 페이지를 인식하는 방법
-- 좁은 의미 : document 객체와 관련된 객체의 집합을 나타냄
-
-문서 객체 선택
-document.getElementById(아이디) : 아이디를 사용해 문서 객체를 선택
-document.querySelector(선택자) : 선택자를 사용해 문서 객체를 선택
-
-
-
+## 애니메이션
+animate()
+- 스타일에 적용
+- 숫자를 적용할 수 있는 모든 속성에 animate( ) 메소드 사용 가능
+- 콜백 함수는 애니메이션이 종료되었을 때 호출, 생략 가능함
 
 ## [05월25일]
 > 요청과 응답, express 모듈, 서버 생성/실행, 페이지 라우팅, response 객체, request 객체, 미들웨어
